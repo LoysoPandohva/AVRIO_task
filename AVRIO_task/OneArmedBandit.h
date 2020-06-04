@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
-#include "Button.h"
 #include "Drum.h"
+#include "Button.h"
 
 class OneArmedBandit {
 	std::vector<Drum> drums;
@@ -11,6 +11,7 @@ class OneArmedBandit {
 
 public:
 	OneArmedBandit();
+	void loadTextures(unsigned int *_ptrToTextures);
 
 	void renderBoundary();
 	void renderFrame();

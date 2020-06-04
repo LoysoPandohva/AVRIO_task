@@ -16,6 +16,8 @@ public:
 	void setStartOfRotation(int value);
 	void setRotationTime(int value);
 
+	void loadTextures(unsigned int *_ptrToTextures);
+
 	void renderDrum();
 	void drumRotation();
 };

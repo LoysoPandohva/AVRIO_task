@@ -5,7 +5,7 @@ Drum::Drum(float offsetW)
 	: speed(0.0f), startOfRotation(0), rotationTime(0), isRot(false) {
 
 	for (int i = 0; i < 60; i++) {
-		drum.push_back(Symbol(static_cast<float>(i % 12 + 1), offsetW, 0.3f * (i - 1)));
+		drum.push_back(Symbol(i % 12, offsetW, 0.3f * (i - 1)));
 	}
 }
 
@@ -20,6 +20,12 @@ void Drum::setStartOfRotation(int value) {
 }
 void Drum::setRotationTime(int value) {
 	rotationTime = value;
+}
+
+void Drum::loadTextures(unsigned int *_ptrToTextures) {
+	for (auto &symbol : drum) {
+		symbol.loadTextures(_ptrToTextures);
+	}
 }
 
 void Drum::renderDrum() {

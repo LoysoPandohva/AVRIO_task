@@ -5,8 +5,17 @@
 
 OneArmedBandit::OneArmedBandit() : 
 	drums({ Drum(-0.7f), Drum(-0.35f), Drum(0.0f), Drum(0.35f), Drum(0.7f) }),
-	button(Button(-0.2f, -0.9f, 0.4f, 0.2f, "START", -0.09f, -0.82f))
+	button(Button(-0.2f, -0.9f, 0.4f, 0.2f)),
+	startOfGame(0),
+	durationOfGame(0)
 {}
+
+void OneArmedBandit::loadTextures(unsigned int *_ptrToTextures) {
+	for (auto &drum : drums) {
+		drum.loadTextures(_ptrToTextures);
+	}
+	button.loadTexture(_ptrToTextures);
+}
 
 void OneArmedBandit::renderBoundary() {
 	glBegin(GL_QUADS);

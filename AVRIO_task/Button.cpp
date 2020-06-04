@@ -3,23 +3,17 @@
 #include "Button.h"
 
 Button::Button()
-	:up_right(std::make_pair(0, 0)),
-	up_left(std::make_pair(0, 0)),
-	down_left(std::make_pair(0, 0)),
-	down_right(std::make_pair(0, 0)),
-	buttonText(""),
-	textPos(std::make_pair(0, 0)),
-	click(false)
+	:pos(std::make_pair(0.0f, 0.0f)),
+	size(std::make_pair(0.0f, 0.0f)),
+	click(false),
+	ptrToTextures(nullptr)
 {}
 
-Button::Button(float down_leftX, float down_leftY, float width, float height, std::string buttonText, float textX, float textY):
-	up_right(std::make_pair(down_leftX + width, down_leftY + height)),
-	up_left(std::make_pair(down_leftX, down_leftY + height)),
-	down_left(std::make_pair(down_leftX, down_leftY)),
-	down_right(std::make_pair(down_leftX + width, down_leftY)),
-	buttonText(buttonText),
-	textPos(std::make_pair(textX, textY)),
-	click(false)
+Button::Button(float down_leftX, float down_leftY, float width, float height):
+	pos(std::make_pair(down_leftX, down_leftY)),
+	size(std::make_pair(width, height)),
+	click(false),
+	ptrToTextures(nullptr)
 {}
 
 bool Button::getClick() {
@@ -29,10 +23,14 @@ void Button::setClick(bool value) {
 	click = value;
 }
 bool Button::isButtonPressed(float x, float y) {
-	if (x < up_right.first && x > down_left.first && y > down_left.second && y < up_right.second) {
+	if (x < pos.first + size.first && x > pos.first && y > pos.second && y < pos.second + size.second) {
 		click = true;
 	}
 	return click;
+}
+
+void Button::loadTexture(unsigned int *_ptrToTextures) {
+	ptrToTextures = _ptrToTextures;
 }
 
 void Button::flashing() {
@@ -55,6 +53,8 @@ void Button::flashing() {
 
 }
 void Button::renderButton() {
+	glBindTexture(GL_TEXTURE_2D, ptrToTextures[4]);
+
 	glBegin(GL_QUADS);
 
 	if (!click) {
@@ -64,11 +64,10 @@ void Button::renderButton() {
 		glColor3f(0.5f, 0.5f, 0.5f);
 	}
 
-	glVertex2f(up_right.first, up_right.second);
-	glVertex2f(up_left.first, up_left.second);
-	glVertex2f(down_left.first, down_left.second);
-	glVertex2f(down_right.first, down_right.second);
-	glEnd();
+	glTexCoord2f(0.0f, 0.0f); glVertex2f(pos.first, pos.second);
+	glTexCoord2f(0.0f, 1.0f); glVertex2f(pos.first, pos.second + size.second);
+	glTexCoord2f(1.0f, 1.0f); glVertex2f(pos.first + size.first, pos.second + size.second);
+	glTexCoord2f(1.0f, 0.0f); glVertex2f(pos.first + size.first, pos.second);
 
-	renderText(buttonText, GLUT_BITMAP_HELVETICA_18, textPos.first, textPos.second, 0, 0, 0);
+	glEnd();
 }

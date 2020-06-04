@@ -1,8 +1,4 @@
-﻿  Button.cpp
-  Drum.cpp
+﻿  OneArmedBandit.cpp
   main.cpp
-  OneArmedBandit.cpp
-  Symbol.cpp
-  TextRender.cpp
   Generating Code...
   AVRIO_task.vcxproj -> C:\Users\DNS\Desktop\Tasks\AVRIO_task\Debug\AVRIO_task.exe

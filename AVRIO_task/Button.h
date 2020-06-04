@@ -1,22 +1,20 @@
 #pragma once
-#include <string>
 #include <utility>
 
 class Button {
-	std::pair<float, float> up_right;
-	std::pair<float, float> up_left;
-	std::pair<float, float> down_left;
-	std::pair<float, float> down_right;
-	std::string buttonText;
-	std::pair<float, float> textPos;
+	std::pair<float, float> pos;
+	std::pair<float, float> size;
 	bool click;
+	unsigned int *ptrToTextures;
 
 public:
 	Button();
-	Button(float down_leftX, float down_leftY, float width, float height, std::string buttonText, float textX, float textY);
+	Button(float posX, float posY, float width, float height);
 	bool getClick();
 	void setClick(bool value);
 	bool isButtonPressed(float x, float y);
+
+	void loadTexture(unsigned int *_ptrToTextures);
 
 	void flashing();
 	void renderButton();

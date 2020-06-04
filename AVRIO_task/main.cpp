@@ -1,11 +1,14 @@
 #include <string>
 #include "glut.h"
+#include "gl/glaux.h"
 #include "TextRender.h"
 #include "OneArmedBandit.h"
+#include "Textures.h"
 
-const int windowWidth = 640;
-const int windowHeight = 480;
+int windowWidth = 640;
+int windowHeight = 480;
 OneArmedBandit oneArmedBandit;
+Textures textures;
 float mouseX = 0.0f;
 float mouseY = 0.0f;
 
@@ -20,7 +23,6 @@ int getFPS() {
 		fps = callCounter;
 		callCounter = 0;
 	}
-
 	return fps;
 }
 
@@ -47,7 +49,11 @@ void mousePressed(int button, int state, int x, int y) {
 	}
 }
 
-void Initialize() {
+void initialize() {
+	textures.loadTextures();
+	oneArmedBandit.loadTextures(textures.getTextures());
+
+	glEnable(GL_TEXTURE_2D);
 	glClearColor(0.0, 0.0, 0.0, 1.0);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -60,7 +66,7 @@ int main(int argc, char ** argv) {
 	glutInitWindowSize(windowWidth, windowHeight);
 	glutInitWindowPosition(100, 100);
 	glutCreateWindow("One-armed Bandit");
-	Initialize();
+	initialize();
 	glutDisplayFunc(display);
 	glutIdleFunc(changeScene);
 	glutMouseFunc(mousePressed);

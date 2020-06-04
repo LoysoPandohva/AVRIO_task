@@ -6,12 +6,15 @@ class Symbol {
 	float b;
 	float offsetW;
 	float offsetH;
+	int textureNum;
+	unsigned int textures[4];
 
 public:
-	Symbol(float color, float offsetW, float offsetH);
+	Symbol(int type, float offsetW, float offsetH);
 
 	void setOffsetH(float value);
 	float getOffsetH();
 	
+	void loadTextures(unsigned int *_ptrToTextures);
 	void renderSymbol();
 };
